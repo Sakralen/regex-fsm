@@ -1,9 +1,12 @@
 package edu.hsai.regexautomata;
 
+import edu.hsai.regexautomata.edge.Edge;
 import edu.hsai.regexautomata.state.State;
 
+import java.util.Set;
+
 public class RegexAutomataApp {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         State q2 = State.buildState()
                 .setId("q2")
                 .makeFinal()
@@ -11,13 +14,13 @@ public class RegexAutomataApp {
 
         State q1 = State.buildState()
                 .setId("q1")
-                .connectToItself('c')
-                .connectTo(q2, 'b')
+                .connectToItself(Set.of('a'))
+                .connectTo(q2, Set.of('b'))
                 .build();
 
-        String word = "cat";
-        RegexAutomata ra = new RegexAutomata(q1, word);
+        Edge.buildEdge().setDst(q1).setSrc(q2).setSignals(Set.of('a')).build();
 
-        System.out.println(ra.nextState(word.charAt(0)));
+        String word = "abab";
+        System.out.println(new Analyzer(q1, word).isRegexed());
     }
 }

@@ -3,6 +3,7 @@ package edu.hsai.regexautomata.state;
 import edu.hsai.regexautomata.edge.Edge;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class State {
     public final ArrayList<Edge> edges = new ArrayList<>();
@@ -30,13 +31,13 @@ public class State {
             return this;
         }
 
-        public Builder connectTo(State dst, char letter) {
-            Edge.buildEdge().setSrc(State.this).setDst(dst).setLetter(letter).build();
+        public Builder connectTo(State dst, Set<Character> signals) {
+            Edge.buildEdge().setSrc(State.this).setDst(dst).setSignals(signals).build();
             return this;
         }
 
-        public Builder connectToItself(char letter) {
-            Edge.buildEdge().setSrc(State.this).setDst(State.this).setLetter(letter).build();
+        public Builder connectToItself(Set<Character> signals) {
+            Edge.buildEdge().setSrc(State.this).setDst(State.this).setSignals(signals).build();
             return this;
         }
 
@@ -51,6 +52,10 @@ public class State {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isFinal() {
+        return isFinal;
     }
 
     @Override

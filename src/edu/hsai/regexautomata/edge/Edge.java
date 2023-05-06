@@ -2,12 +2,18 @@ package edu.hsai.regexautomata.edge;
 
 import edu.hsai.regexautomata.state.State;
 
+import java.util.Set;
+
 public class Edge {
     private State src;
     private State dst;
-    private char letter;
+    private Set<Character> signals;
 
     private Edge() {
+    }
+
+    public static Builder buildEdge() {
+        return new Edge().new Builder();
     }
 
     public class Builder {
@@ -24,8 +30,8 @@ public class Edge {
             return this;
         }
 
-        public Builder setLetter(char letter) {
-            Edge.this.letter = letter;
+        public Builder setSignals(Set<Character> signals) {
+            Edge.this.signals = signals;
             return this;
         }
 
@@ -38,16 +44,12 @@ public class Edge {
         return dst;
     }
 
-    public char getLetter() {
-        return letter;
-    }
-
-    public static Builder buildEdge() {
-        return new Edge().new Builder();
+    public Set<Character> getSignals() {
+        return signals;
     }
 
     @Override
     public String toString() {
-        return String.format("src: %s; dst: %s; letter: %s", src, dst, letter);
+        return String.format("src: %s; dst: %s; signals: %s", src, dst, signals.toString());
     }
 }
