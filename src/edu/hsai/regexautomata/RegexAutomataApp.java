@@ -35,6 +35,7 @@ public class RegexAutomataApp {
         while (true) {
             System.out.println("Выберите пункт меню: (default: 2)");
             String input = scanner.nextLine().trim();
+            System.out.println();
 
             if (input.isEmpty()) {
                 return "2";
@@ -50,7 +51,16 @@ public class RegexAutomataApp {
     }
 
     private static void execAnalyzer() {
-        System.out.println("hehe not yet");
+        System.out.println("Введите строку:");
+        String line = scanner.nextLine();
+        System.out.println();
+
+        if (Analyzer.analyze(automata, line)) {
+            System.out.println("Строка соответствует регулярному выражению!");
+            return;
+        }
+
+        System.out.println("Строка не соответствует регулярному выражению!");
     }
 
     private static void execGenerator() {
