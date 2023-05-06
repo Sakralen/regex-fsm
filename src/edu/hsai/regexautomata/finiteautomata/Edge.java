@@ -1,13 +1,13 @@
-package edu.hsai.regexautomata.edge;
+package edu.hsai.regexautomata.finiteautomata;
 
-import edu.hsai.regexautomata.state.State;
-
+import java.util.HashSet;
 import java.util.Set;
 
 public class Edge {
     private State src;
     private State dst;
-    private Set<Character> signals;
+    public Set<Character> signals;
+    public static Edge nil = buildEdge().setSrc(State.nil).setDst(State.nil).setSignals(new HashSet<>()).build();
 
     private Edge() {
     }
@@ -16,9 +16,19 @@ public class Edge {
         return new Edge().new Builder();
     }
 
+    public State getDst() {
+        return dst;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("src: %s; dst: %s; signals: %s", src, dst, signals.toString());
+    }
+
     public class Builder {
         private Builder() {
         }
+
         public Builder setSrc(State src) {
             Edge.this.src = src;
             src.addEdge(Edge.this);
@@ -38,18 +48,5 @@ public class Edge {
         public Edge build() {
             return Edge.this;
         }
-    }
-
-    public State getDst() {
-        return dst;
-    }
-
-    public Set<Character> getSignals() {
-        return signals;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("src: %s; dst: %s; signals: %s", src, dst, signals.toString());
     }
 }

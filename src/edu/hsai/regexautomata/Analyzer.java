@@ -1,31 +1,20 @@
 package edu.hsai.regexautomata;
 
-import edu.hsai.regexautomata.edge.Edge;
-import edu.hsai.regexautomata.state.State;
+import edu.hsai.regexautomata.finiteautomata.Edge;
+import edu.hsai.regexautomata.finiteautomata.State;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+// ArrayList<Characters> is used over String or char[] or etc. due to
+// potential ability to make these implemented classes generic.
 public class Analyzer {
-    private State currentState;
-    private final ArrayList<Character> chars;
+    private static State currentState;
 
-    public Analyzer(State startingState, String word) {
-        currentState = startingState;
-        this.chars = word.chars().mapToObj(e -> (char) e).collect(Collectors.toCollection(ArrayList::new));
-    }
+    public static boolean analyze(RegexAutomata automata, String word) {
+        currentState = automata.getEntryState();
+        ArrayList<Character> chars = word.chars().mapToObj(e -> (char) e).collect(Collectors.toCollection(ArrayList::new));
 
-    private State next(Character letter) {
-        for (Edge edge : currentState.edges) {
-            if (edge.getSignals().contains(letter)) {
-                return edge.getDst();
-            }
-        }
-
-        return State.nil;
-    }
-
-    public boolean isRegexed() {
         for (Character letter : chars) {
             currentState = next(letter);
             if (currentState == State.nil) {
@@ -34,5 +23,15 @@ public class Analyzer {
         }
 
         return currentState.isFinal();
+    }
+
+    private static State next(Character letter) {
+        for (Edge edge : currentState.edges) {
+            if (edge.signals.contains(letter)) {
+                return edge.getDst();
+            }
+        }
+
+        return State.nil;
     }
 }

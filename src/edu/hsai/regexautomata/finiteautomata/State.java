@@ -1,6 +1,4 @@
-package edu.hsai.regexautomata.state;
-
-import edu.hsai.regexautomata.edge.Edge;
+package edu.hsai.regexautomata.finiteautomata;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -18,9 +16,27 @@ public class State {
         return new State().new Builder();
     }
 
+    public void addEdge(Edge edge) {
+        edges.add(edge);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isFinal() {
+        return isFinal;
+    }
+
+    @Override
+    public String toString() {
+        return (!isFinal) ? id : (id + " (final)");
+    }
+
     public class Builder {
         private Builder() {
         }
+
         public Builder setId(String id) {
             State.this.id = id;
             return this;
@@ -44,22 +60,5 @@ public class State {
         public State build() {
             return State.this;
         }
-    }
-
-    public void addEdge(Edge edge) {
-        edges.add(edge);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public boolean isFinal() {
-        return isFinal;
-    }
-
-    @Override
-    public String toString() {
-        return (!isFinal) ? id : (id + " (final)");
     }
 }

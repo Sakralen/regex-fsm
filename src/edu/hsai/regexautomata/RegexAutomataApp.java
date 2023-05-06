@@ -1,26 +1,25 @@
 package edu.hsai.regexautomata;
 
-import edu.hsai.regexautomata.edge.Edge;
-import edu.hsai.regexautomata.state.State;
+import edu.hsai.regexautomata.finiteautomata.Edge;
+import edu.hsai.regexautomata.finiteautomata.State;
 
 import java.util.Set;
 
 public class RegexAutomataApp {
     public static void main(String[] args) {
-        State q2 = State.buildState()
-                .setId("q2")
-                .makeFinal()
-                .build();
+        RegexAutomata automata = new RegexAutomata();
 
-        State q1 = State.buildState()
-                .setId("q1")
-                .connectToItself(Set.of('a'))
-                .connectTo(q2, Set.of('b'))
-                .build();
+        String word = "ab";
+        System.out.println(Analyzer.analyze(automata, word));
+        word = "aaab";
+        System.out.println(Analyzer.analyze(automata, word));
+        word = "bab";
+        System.out.println(Analyzer.analyze(automata, word));
+        word = "abb";
+        System.out.println(Analyzer.analyze(automata, word));
+        word = "b";
+        System.out.println(Analyzer.analyze(automata, word));
 
-        Edge.buildEdge().setDst(q1).setSrc(q2).setSignals(Set.of('a')).build();
-
-        String word = "abab";
-        System.out.println(new Analyzer(q1, word).isRegexed());
+        System.out.println(Generator.generate(automata));
     }
 }
