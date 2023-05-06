@@ -1,25 +1,81 @@
 package edu.hsai.regexautomata;
 
-import edu.hsai.regexautomata.finiteautomata.Edge;
-import edu.hsai.regexautomata.finiteautomata.State;
-
-import java.util.Set;
+import java.util.Scanner;
 
 public class RegexAutomataApp {
+    private static final RegexAutomata automata = new RegexAutomata();
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final String menu = """
+            +------------------------------+
+             Ввести строку для проверки [1]
+             Сгенерировать строку       [2]
+            +------------------------------+""";
+
+    private static final String incorrectInputString = "Некорректный ввод!";
+
     public static void main(String[] args) {
-        RegexAutomata automata = new RegexAutomata();
+        do {
+            System.out.println(menu);
+            System.out.println();
 
-        String word = "ab";
-        System.out.println(Analyzer.analyze(automata, word));
-        word = "aaab";
-        System.out.println(Analyzer.analyze(automata, word));
-        word = "bab";
-        System.out.println(Analyzer.analyze(automata, word));
-        word = "abb";
-        System.out.println(Analyzer.analyze(automata, word));
-        word = "b";
-        System.out.println(Analyzer.analyze(automata, word));
+            String input = getMenuChoice();
+            switch (input) {
+                case "1" -> execAnalyzer();
+                case "2" -> execGenerator();
+                default -> {
+                    System.out.println("Что-то пошло не так...");
+                    System.exit(1);
+                }
+            }
+            System.out.println();
+        } while (isContinue());
+    }
 
+    private static String getMenuChoice() {
+        while (true) {
+            System.out.println("Выберите пункт меню: (default: 2)");
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                return "2";
+            }
+
+            if (input.equals("1") || input.equals("2")) {
+                return input;
+            }
+
+            System.out.println(incorrectInputString);
+            System.out.println();
+        }
+    }
+
+    private static void execAnalyzer() {
+        System.out.println("hehe not yet");
+    }
+
+    private static void execGenerator() {
         System.out.println(Generator.generate(automata));
+    }
+
+    private static boolean isContinue() {
+        while (true) {
+            System.out.println("Продолжить? Y/N (default: Y)");
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                return true;
+            }
+
+            if (input.equals("Y") || input.equals("y")) {
+                return true;
+            }
+
+            if (input.equals("N") || input.equals("n")) {
+                return false;
+            }
+
+            System.out.println(incorrectInputString);
+            System.out.println();
+        }
     }
 }
