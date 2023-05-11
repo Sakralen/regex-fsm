@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class RegexAutomataApp {
     private static final RegexAutomata automata = new RegexAutomata();
     private static final Scanner scanner = new Scanner(System.in);
+    private static final int genCount = 10;
     private static final String menu = """
             +------------------------------+
              Ввести строку для проверки [1]
@@ -64,7 +65,9 @@ public class RegexAutomataApp {
     }
 
     private static void execGenerator() {
-        System.out.println(Generator.generate(automata));
+        for (int i = 0; i < genCount; i++) {
+            System.out.println(Generator.generate(automata));
+        }
     }
 
     private static boolean isContinue() {

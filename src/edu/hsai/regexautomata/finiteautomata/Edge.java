@@ -45,6 +45,11 @@ public class Edge {
             return this;
         }
 
+        public Builder setSignals(char signal) {
+            Edge.this.signals = Set.of(signal);
+            return this;
+        }
+
         public Edge build() {
             return Edge.this;
         }
