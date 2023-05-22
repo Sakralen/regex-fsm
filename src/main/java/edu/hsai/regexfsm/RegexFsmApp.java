@@ -1,9 +1,9 @@
-package edu.hsai.regexautomata;
+package edu.hsai.regexfsm;
 
 import java.util.Scanner;
 
-public class RegexAutomataApp {
-    private static final RegexAutomata automata = new RegexAutomata();
+public class RegexFsmApp {
+    private static final RegexFsm automata = new RegexFsm();
     private static final Scanner scanner = new Scanner(System.in);
     private static final int genCount = 10;
     private static final String menu = """

@@ -1,7 +1,7 @@
-package edu.hsai.regexautomata;
+package edu.hsai.regexfsm;
 
-import edu.hsai.regexautomata.finiteautomata.Edge;
-import edu.hsai.regexautomata.finiteautomata.State;
+import edu.hsai.regexfsm.finitestatemachine.Edge;
+import edu.hsai.regexfsm.finitestatemachine.State;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class Analyzer {
     private static State currentState;
 
-    public static boolean analyze(RegexAutomata automata, String word) {
+    public static boolean analyze(RegexFsm automata, String word) {
         currentState = automata.getEntryState();
         ArrayList<Character> chars = word.chars().mapToObj(e -> (char) e).collect(Collectors.toCollection(ArrayList::new));
 

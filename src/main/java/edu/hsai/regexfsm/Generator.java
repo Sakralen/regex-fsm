@@ -1,7 +1,7 @@
-package edu.hsai.regexautomata;
+package edu.hsai.regexfsm;
 
-import edu.hsai.regexautomata.finiteautomata.Edge;
-import edu.hsai.regexautomata.finiteautomata.State;
+import edu.hsai.regexfsm.finitestatemachine.State;
+import edu.hsai.regexfsm.finitestatemachine.Edge;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,7 +13,7 @@ public class Generator {
     private static State currentState;
     private static final Random random = new Random(/*System.currentTimeMillis()*/);
 
-    public static String generate(RegexAutomata automata) {
+    public static String generate(RegexFsm automata) {
         currentState = automata.getEntryState();
 
         ArrayList<Character> chars = new ArrayList<>();

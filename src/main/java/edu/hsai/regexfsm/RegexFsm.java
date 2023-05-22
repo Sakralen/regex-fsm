@@ -1,16 +1,16 @@
-package edu.hsai.regexautomata;
+package edu.hsai.regexfsm;
 
-import edu.hsai.regexautomata.finiteautomata.Edge;
-import edu.hsai.regexautomata.finiteautomata.State;
+import edu.hsai.regexfsm.finitestatemachine.Edge;
+import edu.hsai.regexfsm.finitestatemachine.State;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class RegexAutomata {
+public class RegexFsm {
     private final State entryState;
     private static final Set<Character> alphabet = new HashSet<>();
 
-    public RegexAutomata() {
+    public RegexFsm() {
         initAlphabet();
 
         State q34 = State.buildState().makeFinal().build();

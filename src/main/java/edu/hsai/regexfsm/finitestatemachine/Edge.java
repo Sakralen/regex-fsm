@@ -1,4 +1,4 @@
-package edu.hsai.regexautomata.finiteautomata;
+package edu.hsai.regexfsm.finitestatemachine;
 
 import java.util.HashSet;
 import java.util.Set;
