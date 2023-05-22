@@ -62,6 +62,11 @@ public class State {
             return this;
         }
 
+        public Builder connectToItself(char signal) {
+            Edge.buildEdge().setSrc(State.this).setDst(State.this).setSignals(signal).build();
+            return this;
+        }
+
         public State build() {
             return State.this;
         }
