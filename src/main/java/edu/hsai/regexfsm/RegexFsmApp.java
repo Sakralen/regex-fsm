@@ -56,12 +56,13 @@ public class RegexFsmApp {
         String line = scanner.nextLine();
         System.out.println();
 
-        if (Analyzer.analyze(automata, line)) {
-            System.out.println("Строка соответствует регулярному выражению!");
-            return;
-        }
+        Analyzer.Result result = Analyzer.analyze(automata, line);
 
-        System.out.println("Строка не соответствует регулярному выражению!");
+        switch (result) {
+            case MATCH -> System.out.println("Строка соответствует регулярному выражению!");
+            case NOT_MATCH -> System.out.println("Строка не соответствует регулярному выражению!");
+            case NOT_IN_ALPHABET -> System.out.println("Присутствует символ, не принадлежащий алфавиту!");
+        }
     }
 
     private static void execGenerator() {

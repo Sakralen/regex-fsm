@@ -11,18 +11,26 @@ import java.util.stream.Collectors;
 public class Analyzer {
     private static State currentState;
 
-    public static boolean analyze(RegexFsm automata, String word) {
+    public static Result analyze(RegexFsm automata, String word) {
         currentState = automata.getEntryState();
-        ArrayList<Character> chars = word.chars().mapToObj(e -> (char) e).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Character> chars = word.chars().mapToObj(e -> (char) e)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         for (Character letter : chars) {
+            if (!automata.getAlphabet().contains(letter)) {
+                return Result.NOT_IN_ALPHABET;
+            }
+
             currentState = next(letter);
             if (currentState == State.nil) {
-                return false;
+                return Result.NOT_MATCH;
             }
         }
 
-        return currentState.isFinal();
+        if (currentState.isFinal()) {
+            return Result.MATCH;
+        }
+        return Result.NOT_MATCH;
     }
 
     private static State next(Character letter) {
@@ -33,5 +41,11 @@ public class Analyzer {
         }
 
         return State.nil;
+    }
+
+    public enum Result {
+        MATCH,
+        NOT_MATCH,
+        NOT_IN_ALPHABET
     }
 }
